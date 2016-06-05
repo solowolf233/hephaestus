@@ -15,12 +15,14 @@
 #include <fstream>
 
 
-#include "../../inc/tinystr.h"
-#include "../../inc/tinyxml.h"
+#include "../../inc/tinyxml-lib/tinyxml.h"
+#include "../../inc/ecc-lib/uECC.h"
 
 
 #if defined(_DEBUG)
-#	pragma comment(lib, "../../bin/tinyxml_lib_d.lib")
+#	pragma comment(lib, "../../bin/tinyxml-lib_d.lib")
+#	pragma comment(lib, "../../bin/ecc-lib_d.lib")
 #else
-#	pragma comment(lib, "../../bin/tinyxml_lib.lib")
+#	pragma comment(lib, "../../bin/tinyxml-lib.lib")
+#	pragma comment(lib, "../../bin/ecc-lib.lib")
 #endif
