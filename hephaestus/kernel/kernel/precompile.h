@@ -19,6 +19,8 @@
 #include "../../inc/ecc-lib/uECC.h"
 
 
+#pragma comment(lib, "advapi32.lib")
+
 #if defined(_DEBUG)
 #	pragma comment(lib, "../../bin/tinyxml-lib_d.lib")
 #	pragma comment(lib, "../../bin/ecc-lib_d.lib")
