@@ -24,6 +24,9 @@
     <ClInclude Include="encryptor.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="hephaestus.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="precompile.cpp">

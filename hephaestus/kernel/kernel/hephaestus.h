@@ -1,10 +1,11 @@
 /**
-* precompile.cpp
+* hephaestus.h
 *
 * @description:
-*    Include the dependent header files that will change hardly.
+*    The top header file. You just need to include this
+* file merely in your project.
 *
-* @author:
+* @author: Tankle L.
 * @date: June 5th, 2016
 *
 * @namespace:
@@ -20,6 +21,7 @@
 #include "../../inc/tinyxml-lib/tinyxml.h"
 #include "../../inc/ecc-lib/uECC.h"
 
+#include "encryptor.h"
 
 #pragma comment(lib, "advapi32.lib")
 
@@ -30,3 +32,4 @@
 #	pragma comment(lib, "../../bin/tinyxml-lib.lib")
 #	pragma comment(lib, "../../bin/ecc-lib.lib")
 #endif
+

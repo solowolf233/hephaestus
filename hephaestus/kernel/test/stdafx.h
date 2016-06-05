@@ -13,3 +13,9 @@
 
 
 // TODO:  在此处引用程序需要的其他头文件
+
+#include <iostream>
+
+#include "../kernel/hephaestus.h"
+
+#pragma comment(lib, "../Debug/kernel.lib")

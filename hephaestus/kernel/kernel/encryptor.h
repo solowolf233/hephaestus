@@ -20,18 +20,29 @@ namespace Hephaestus
 	public:
 		virtual ~PublicKey();
 	public:
+
+		virtual	void* GetKey() const = 0;
 	protected:
 	private:
 	};
-		
+
+	class ECC_PublicKey : public PublicKey, public std::string
+	{
+	public:
+		virtual ~ECC_PublicKey();
+
+	public:
+		void* GetKey() const override;
+	};
+	
 	class Encryptor abstract
 	{
 	public:
 		virtual ~Encryptor();
 
 	public:
-		virtual void Encrypt() = 0;
-		virtual void Decrypt() = 0;
+		virtual void Encrypt(std::string& output, const std::string& origin, PublicKey const * const pPublicKey) const = 0;
+		virtual void Decrypt() const = 0;
 	protected:
 	private:
 	};
@@ -42,6 +53,8 @@ namespace Hephaestus
 		~ECC_Alpha_Encryptor();
 
 	public:
+		virtual void Encrypt(std::string& output, const std::string& origin, PublicKey const * const pPublicKey) const override;
+		virtual void Decrypt() const override;
 	protected:
 		static uECC_Curve	_curve;
 	};
