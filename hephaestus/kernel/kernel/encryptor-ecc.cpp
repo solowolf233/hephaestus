@@ -1,10 +1,11 @@
 /**
-* encrypor.cpp
+* encrypor-ecc.cpp
 *
 * @description:
+*     Using elliptic curve cryptography to encrypt messages
 *
 * @author: Tankle L.
-* @date: June 5th, 2016
+* @date: June 6th, 2016
 *
 * @namespace: Hephaestus::Cryptography
 *
@@ -12,29 +13,48 @@
 
 #include "precompile.h"
 #include "encryptor.h"
+#include "encryptor-ecc.h"
 
 using namespace Hephaestus::Cryptography;
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////
-// SecretKey
+// ECCKey
 
-SecretKey::~SecretKey()
+ECCKey::~ECCKey()
 {
 
 }
 
-// SecretKey
+void* ECCKey::GetKey() const
+{
+	return nullptr;
+}
+
+// ECCKey
 // //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////
-// Encryptor
+// ECC_Encryptor
 
-Encryptor::~Encryptor()
+ECC_Encryptor::~ECC_Encryptor()
 {
-	
+
 }
 
-// Encryptor
+void ECC_Encryptor::Encrypt(Secret& output, const Secret& origin, const SecretKey& pPublicKey) const
+{
+
+}
+
+void ECC_Encryptor::Decrypt() const
+{
+
+}
+
+
+uECC_Curve ECC_Encryptor::_curve = nullptr;
+
+// ECC_Encryptor
 // //////////////////////////////////////////////////////////////////////////////////////////////////

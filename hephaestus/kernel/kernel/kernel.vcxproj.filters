@@ -27,12 +27,18 @@
     <ClInclude Include="hephaestus.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="encryptor-ecc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="precompile.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="encryptor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="encryptor-ecc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

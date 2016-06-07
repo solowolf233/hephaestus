@@ -6,7 +6,7 @@
 * @author: Tankle L.
 * @date: June 5th, 2016
 *
-* @namespace: Hephaestus
+* @namespace: Hephaestus::Cryptography
 *
 */
 
@@ -15,49 +15,47 @@
 
 namespace Hephaestus
 {
-	class PublicKey abstract
+	namespace Cryptography
 	{
-	public:
-		virtual ~PublicKey();
-	public:
+		class SecretKey abstract
+		{
+		public:
+			virtual ~SecretKey();
 
-		virtual	void* GetKey() const = 0;
-	protected:
-	private:
-	};
+		public:
+			virtual	void* GetKey() const = 0;
 
-	class ECC_PublicKey : public PublicKey, public std::string
-	{
-	public:
-		virtual ~ECC_PublicKey();
+		protected:
+		private:
+		};
 
-	public:
-		void* GetKey() const override;
-	};
-	
-	class Encryptor abstract
-	{
-	public:
-		virtual ~Encryptor();
 
-	public:
-		virtual void Encrypt(std::string& output, const std::string& origin, PublicKey const * const pPublicKey) const = 0;
-		virtual void Decrypt() const = 0;
-	protected:
-	private:
-	};
+		class Secret abstract
+		{
+		public:
+			virtual ~Secret();
 
-	class ECC_Alpha_Encryptor : public Encryptor
-	{
-	public:
-		~ECC_Alpha_Encryptor();
+		public:
+			virtual void ToString(std::string& output) const = 0;
 
-	public:
-		virtual void Encrypt(std::string& output, const std::string& origin, PublicKey const * const pPublicKey) const override;
-		virtual void Decrypt() const override;
-	protected:
-		static uECC_Curve	_curve;
-	};
+		protected:
+		private:
+		};
+
+
+		class Encryptor abstract
+		{
+		public:
+			virtual ~Encryptor();
+
+		public:
+			virtual void Encrypt(Secret& output, const Secret& origin, const SecretKey& pPublicKey) const = 0;
+			virtual void Decrypt() const = 0;
+		protected:
+		private:
+		};
+
+	}
 }
 
 #endif // _HEP_ENCRYPTOR_H_

@@ -19,7 +19,7 @@
 
 #include "../../inc/tinyxml-lib/tinyxml.h"
 #include "../../inc/ecc-lib/uECC.h"
-
+#include "../../inc/ecc-lib/uECC_vli.h"
 
 #pragma comment(lib, "advapi32.lib")
 

@@ -76,11 +76,13 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="encryptor-ecc.h" />
     <ClInclude Include="encryptor.h" />
     <ClInclude Include="hephaestus.h" />
     <ClInclude Include="precompile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="encryptor-ecc.cpp" />
     <ClCompile Include="encryptor.cpp" />
     <ClCompile Include="precompile.cpp" />
   </ItemGroup>
