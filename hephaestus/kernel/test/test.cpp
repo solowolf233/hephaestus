@@ -40,7 +40,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	uECC_RNG_Function	rng_fn;
 	rng_fn = uECC_get_rng();
 	
-	
+	const uECC_word_t* pG = uECC_curve_G(curve);
+	const uECC_word_t* pN = uECC_curve_n(curve);
+	const uECC_word_t* pP = uECC_curve_p(curve);
+	const uECC_word_t* pB = uECC_curve_b(curve);
 
 	vli_print(pubkeyA, sizePubkeyA);
 	cout << endl;

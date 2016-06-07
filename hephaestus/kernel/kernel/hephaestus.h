@@ -18,6 +18,7 @@
 #include <string>
 #include <sstream>
 
+#define uECC_ENABLE_VLI_API 1
 #include "../../inc/tinyxml-lib/tinyxml.h"
 #include "../../inc/ecc-lib/uECC.h"
 #include "../../inc/ecc-lib/uECC_vli.h"
@@ -29,9 +30,9 @@
 
 #if defined(_DEBUG)
 #	pragma comment(lib, "../../bin/tinyxml-lib_d.lib")
-#	pragma comment(lib, "../../bin/ecc-lib_d.lib")
+#	pragma comment(lib, "../../bin/uecc-lib_d.lib")
 #else
 #	pragma comment(lib, "../../bin/tinyxml-lib.lib")
-#	pragma comment(lib, "../../bin/ecc-lib.lib")
+#	pragma comment(lib, "../../bin/uecc-lib.lib")
 #endif
 
