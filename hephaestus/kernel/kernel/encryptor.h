@@ -17,40 +17,57 @@ namespace Hephaestus
 {
 	namespace Cryptography
 	{
-		class SecretKey abstract
+		class SecretKey abstract : public Object
 		{
 		public:
 			virtual ~SecretKey();
+			
+		public:
+			virtual std::string QueryType() const override
+			{ return "Hephaestus::SecretKey"; }
 
 		public:
-			virtual	void* GetKey() const = 0;
+			virtual	void const * KeyBuffer() const = 0;
+			virtual size_t KeyBufferSize() const = 0;
+			virtual std::string ToString() const = 0;
+
+		protected:
+			virtual void ResizeKey(const size_t& size) = 0;
+			virtual void SetKey(byte const * const value, const size_t& size) = 0;
 
 		protected:
 		private:
 		};
 
 
-		class Secret abstract
+		class Secret abstract : public Object
 		{
 		public:
 			virtual ~Secret();
 
 		public:
-			virtual void ToString(std::string& output) const = 0;
+			virtual std::string QueryType() const override
+			{ return "Hephaestus::Secret"; }
+
+		public:
+			virtual void ToString(std::string& __hep_out output) const = 0;
+			virtual void ToBytes(unsigned char * const __hep_out pBuffer) const = 0;
 
 		protected:
 		private:
 		};
 
 
-		class Encryptor abstract
+		class Encryptor abstract : public Object
 		{
 		public:
 			virtual ~Encryptor();
 
 		public:
-			virtual void Encrypt(Secret& output, const Secret& origin, const SecretKey& pPublicKey) const = 0;
+			virtual void Encrypt(Secret& __hep_out output,
+				const Secret& __hep_in origin, const SecretKey& __hep_in key) const = 0;
 			virtual void Decrypt() const = 0;
+
 		protected:
 		private:
 		};

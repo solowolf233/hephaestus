@@ -11,6 +11,9 @@
 */
 
 #include "precompile.h"
+#include "datatypes.h"
+#include "utilities.h"
+#include "object.h"
 #include "encryptor.h"
 
 using namespace Hephaestus::Cryptography;

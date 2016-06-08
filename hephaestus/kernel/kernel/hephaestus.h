@@ -23,6 +23,9 @@
 #include "../../inc/ecc-lib/uECC.h"
 #include "../../inc/ecc-lib/uECC_vli.h"
 
+#include "datatypes.h"
+#include "utilities.h"
+#include "object.h"
 #include "encryptor.h"
 #include "encryptor-ecc.h"
 

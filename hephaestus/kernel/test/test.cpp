@@ -27,32 +27,55 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	uint8_t*	pubkeyA = nullptr;
 	uint8_t*	prikeyA = nullptr;
-	int sizePubkeyA(0), sizePrikeyA(0);
+	uint8_t*	pubkeyB = nullptr;
+	uint8_t*	prikeyB = nullptr;
 
-	sizePubkeyA = uECC_curve_public_key_size(curve);
-	sizePrikeyA = uECC_curve_private_key_size(curve);
+	uint8_t		secretA[32] = { 0 };
+	uint8_t		secretB[32] = { 0 };
 
-	pubkeyA = new uint8_t[sizePubkeyA];
-	prikeyA = new uint8_t[sizePrikeyA];
+	int sizePubkey(0), sizePrikey(0);
+
+	sizePubkey = uECC_curve_public_key_size(curve);
+	sizePrikey = uECC_curve_private_key_size(curve);
+
+	pubkeyA = new uint8_t[sizePubkey];
+	prikeyA = new uint8_t[sizePrikey];
+	pubkeyB = new uint8_t[sizePubkey];
+	prikeyB = new uint8_t[sizePrikey];
 
 	res = uECC_make_key(pubkeyA, prikeyA, curve);
+	res = uECC_make_key(pubkeyB, prikeyB, curve);	
 
-	uECC_RNG_Function	rng_fn;
-	rng_fn = uECC_get_rng();
-	
-	const uECC_word_t* pG = uECC_curve_G(curve);
-	const uECC_word_t* pN = uECC_curve_n(curve);
-	const uECC_word_t* pP = uECC_curve_p(curve);
-	const uECC_word_t* pB = uECC_curve_b(curve);
+	cout << "pubA:" << endl;
+	vli_print(pubkeyA, sizePubkey);
+	cout << endl;
+	cout << "priA:" << endl;
+	vli_print(prikeyA, sizePrikey);
+	cout << endl;
+	cout << "pubB:" << endl;
+	vli_print(pubkeyB, sizePubkey);
+	cout << endl;
+	cout << "priB:" << endl;
+	vli_print(prikeyB, sizePrikey);
+	cout << endl;
 
-	vli_print(pubkeyA, sizePubkeyA);
+	uECC_shared_secret(pubkeyB, prikeyA, secretA, curve);
+	uECC_shared_secret(pubkeyA, prikeyB, secretB, curve);
+
+	cout << "secA:" << endl;
+	vli_print(secretA, 32);
 	cout << endl;
-	vli_print(prikeyA, sizePrikeyA);
+
+	cout << "secB:" << endl;
+	vli_print(secretB, 32);
 	cout << endl;
+
 
 	delete[] pubkeyA;
 	delete[] prikeyA;
-	
+	delete[] pubkeyB;
+	delete[] prikeyB;
+
 	return 0;
 }
 

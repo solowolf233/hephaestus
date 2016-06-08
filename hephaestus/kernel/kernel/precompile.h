@@ -11,6 +11,8 @@
 *
 */
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <cmath>
 #include <fstream>
 #include <vector>
