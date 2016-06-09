@@ -20,6 +20,7 @@
 
 #define	KEY_PRINT_BUF_LEN		32
 
+using namespace Hephaestus;
 using namespace Hephaestus::Cryptography;
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,16 +61,22 @@ size_t ECCKey::KeyBufferSize() const
 std::string ECCKey::ToString() const
 {
 	char buf[KEY_PRINT_BUF_LEN] = "";
-	char* pCurVal = static_cast<char*>(_pBuffer);
+	byte* pCurVal = static_cast<byte*>(_pBuffer);
 	std::string output("");
 
 	for (size_t i = 0; i < _size; ++i)
 	{
-		sprintf(buf, "%02X", pCurVal[i]);
+		buf[0] = '\0';
+		sprintf(buf, "%02X", (unsigned int)pCurVal[i]);
 		output += buf;
 	}
 
 	return output;
+}
+
+void ECCKey::Clear()
+{
+	SAFE_DELETE_ARR(_pBuffer);
 }
 
 void ECCKey::ResizeKey(const size_t& size)
@@ -86,7 +93,25 @@ void ECCKey::ResizeKey(const size_t& size)
 
 void ECCKey::SetKey(byte const * const value, const size_t& size)
 {
-	
+	if (size != _size)
+	{
+		throw std::invalid_argument("Error: Size is not as same as this key's.");
+		return;
+	}
+
+	memcpy(_pBuffer, value, size);
+}
+
+void ECCKey::SetKey(byte const * const value, const size_t& offset, const size_t& size)
+{
+	if (offset + size > _size)
+	{
+		throw std::overflow_error("Error: It is goint to overflow.");
+		return;
+	}
+
+	byte *pStart = (byte*)_pBuffer;
+	memcpy(pStart + offset, value, size);
 }
 
 // ECCKey
@@ -96,6 +121,38 @@ void ECCKey::SetKey(byte const * const value, const size_t& size)
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////
 // ECC_Encryptor
+
+ECC_Encryptor::ECC_Encryptor(const CurveType& curvetype)
+{
+	switch (curvetype)
+	{
+	case secp160r1:
+		_curve = uECC_secp160r1();
+		break;
+
+	case secp192r1:
+		_curve = uECC_secp192r1();
+		break;
+
+	case secp224r1:
+		_curve = uECC_secp224r1();
+		break;
+
+	case secp256r1:
+		_curve = uECC_secp256r1();
+		break;
+
+	case secp256k1:
+		_curve = uECC_secp256k1();
+		break;
+
+	default:
+		_curve = nullptr;
+		throw std::invalid_argument("Error: The curvetype must be clear to know.");
+		break;
+	}
+}
+
 
 ECC_Encryptor::~ECC_Encryptor()
 {
@@ -112,8 +169,59 @@ void ECC_Encryptor::Decrypt() const
 
 }
 
+void ECC_Encryptor::GenerateKeysPair(SecretKey& __hep_out pubKey, SecretKey& __hep_out priKey) const
+{
+	uint8_t*	pPubBuf;
+	uint8_t*	pPriBuf;
+	int			pubSize = uECC_curve_public_key_size(_curve);
+	int			priSize = uECC_curve_private_key_size(_curve);
 
-uECC_Curve ECC_Encryptor::_curve = nullptr;
+	pPubBuf = new uint8_t[pubSize];
+	pPriBuf = new uint8_t[priSize];
+
+	if (1 != uECC_make_key(pPubBuf, pPriBuf, _curve))
+	{
+		delete[] pPubBuf;
+		delete[] pPriBuf;
+
+		throw std::bad_exception("Error: Failed to make keys.");
+		return;
+	}
+
+	ECCKey	&pubECCKey = reinterpret_cast<ECCKey&>(pubKey);
+	ECCKey	&priECCKey = reinterpret_cast<ECCKey&>(priKey);
+
+	pubECCKey.ResizeKey(pubSize);
+	priECCKey.ResizeKey(priSize);
+
+	pubECCKey.SetKey(pPubBuf, pubSize);
+	priECCKey.SetKey(pPriBuf, priSize);	
+
+	delete[] pPubBuf;
+	delete[] pPriBuf;
+}
+
+void ECC_Encryptor::SharedSecret(SecretKey& __hep_out sharedKey,
+	const SecretKey& __hep_in pubKey, const SecretKey& __hep_in priKey) const
+{
+	unsigned int size = uECC_curve_num_bytes(_curve);
+	uint8_t*	pSecret = new uint8_t[size];
+
+	const uint8_t*	pPubKeyBuf = static_cast<const uint8_t*>(reinterpret_cast<const ECCKey&>(pubKey).KeyBuffer());
+	const uint8_t*	pPriKeyBuf = static_cast<const uint8_t*>(reinterpret_cast<const ECCKey&>(priKey).KeyBuffer());
+
+	if (1 != uECC_shared_secret(pPubKeyBuf, pPriKeyBuf, pSecret, _curve))
+	{
+		delete[] pSecret;
+		throw std::bad_exception("Error: failed to figure out shard secret.");
+		return;
+	}
+
+	reinterpret_cast<ECCKey&>(sharedKey).ResizeKey(size);
+	reinterpret_cast<ECCKey&>(sharedKey).SetKey(pSecret, size);
+}
+
+
 
 // ECC_Encryptor
 // //////////////////////////////////////////////////////////////////////////////////////////////////

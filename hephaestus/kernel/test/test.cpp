@@ -5,6 +5,7 @@
 
 using namespace std;
 using namespace Hephaestus;
+using namespace Hephaestus::Cryptography;
 
 void vli_print(uint8_t *vli, unsigned int size) {
 	for (unsigned i = 0; i<4; ++i) {
@@ -18,63 +19,35 @@ void vli_print(uint8_t *vli, unsigned int size) {
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	//ECC_Alpha_Encryptor	enc;
-
 	int res = 0;
-	uECC_Curve curve = uECC_secp256k1();
 
-	string	str = "ABCDEFG abcdefg";
+	ECC_Encryptor	enc1(ECC_Encryptor::secp256k1);
+	ECC_Encryptor	enc2(ECC_Encryptor::secp256k1);
 
-	uint8_t*	pubkeyA = nullptr;
-	uint8_t*	prikeyA = nullptr;
-	uint8_t*	pubkeyB = nullptr;
-	uint8_t*	prikeyB = nullptr;
+	ECCKey	priKey1, pubKey1;
+	ECCKey	priKey2, pubKey2;
 
-	uint8_t		secretA[32] = { 0 };
-	uint8_t		secretB[32] = { 0 };
+	cout << "Key Pair <1>" << endl;
+	enc1.GenerateKeysPair(pubKey1, priKey1);
+	cout << pubKey1.ToString() << endl << endl;
+	cout << priKey1.ToString() << endl << endl;
 
-	int sizePubkey(0), sizePrikey(0);
+	cout << "Key Pair <2>" << endl;
+	enc2.GenerateKeysPair(pubKey2, priKey2);
+	cout << pubKey2.ToString() << endl << endl;
+	cout << priKey2.ToString() << endl << endl;
 
-	sizePubkey = uECC_curve_public_key_size(curve);
-	sizePrikey = uECC_curve_private_key_size(curve);
-
-	pubkeyA = new uint8_t[sizePubkey];
-	prikeyA = new uint8_t[sizePrikey];
-	pubkeyB = new uint8_t[sizePubkey];
-	prikeyB = new uint8_t[sizePrikey];
-
-	res = uECC_make_key(pubkeyA, prikeyA, curve);
-	res = uECC_make_key(pubkeyB, prikeyB, curve);	
-
-	cout << "pubA:" << endl;
-	vli_print(pubkeyA, sizePubkey);
-	cout << endl;
-	cout << "priA:" << endl;
-	vli_print(prikeyA, sizePrikey);
-	cout << endl;
-	cout << "pubB:" << endl;
-	vli_print(pubkeyB, sizePubkey);
-	cout << endl;
-	cout << "priB:" << endl;
-	vli_print(prikeyB, sizePrikey);
-	cout << endl;
-
-	uECC_shared_secret(pubkeyB, prikeyA, secretA, curve);
-	uECC_shared_secret(pubkeyA, prikeyB, secretB, curve);
-
-	cout << "secA:" << endl;
-	vli_print(secretA, 32);
-	cout << endl;
-
-	cout << "secB:" << endl;
-	vli_print(secretB, 32);
-	cout << endl;
+	ECCKey shared1, shared2;
 
 
-	delete[] pubkeyA;
-	delete[] prikeyA;
-	delete[] pubkeyB;
-	delete[] prikeyB;
+	enc1.SharedSecret(shared1, pubKey2, priKey1);
+	enc2.SharedSecret(shared2, pubKey1, priKey2);
+
+	cout << "Shared <1>" << endl;
+	cout << shared1.ToString() << endl << endl;
+	cout << "Shared <2>" << endl;
+	cout << shared2.ToString() << endl << endl;
+
 
 	return 0;
 }

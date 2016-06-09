@@ -32,8 +32,10 @@ namespace Hephaestus
 			virtual std::string ToString() const = 0;
 
 		protected:
+			virtual void Clear() = 0;
 			virtual void ResizeKey(const size_t& size) = 0;
 			virtual void SetKey(byte const * const value, const size_t& size) = 0;
+			virtual void SetKey(byte const * const value, const size_t& offset, const size_t& size) = 0;
 
 		protected:
 		private:

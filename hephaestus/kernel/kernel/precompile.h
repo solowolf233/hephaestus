@@ -18,6 +18,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <exception>
 
 #define uECC_ENABLE_VLI_API 1
 #include "../../inc/tinyxml-lib/tinyxml.h"
