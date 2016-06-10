@@ -29,6 +29,8 @@
 #include "datatypes.h"
 #include "utilities.h"
 #include "object.h"
+#include "sha.h"
+#include "shaII.h"
 #include "encryptor.h"
 #include "encryptor-ecc.h"
 

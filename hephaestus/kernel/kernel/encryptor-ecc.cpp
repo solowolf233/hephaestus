@@ -15,6 +15,7 @@
 #include "datatypes.h"
 #include "utilities.h"
 #include "object.h"
+#include "sha.h"
 #include "encryptor.h"
 #include "encryptor-ecc.h"
 
@@ -27,16 +28,24 @@ using namespace Hephaestus::Cryptography;
 // ECCKey
 
 ECCKey::ECCKey() : _pBuffer(nullptr), _size(0)
-{
+{}
 
+ECCKey::ECCKey(const size_t& __hep_in size)
+{
+	_size = size;
+
+	if (size > 0)
+	{
+		_pBuffer = new byte[size];
+	}
 }
 
-ECCKey::ECCKey(const ECCKey& key)
+ECCKey::ECCKey(const ECCKey& __hep_in key)
 {
 	_size = key._size;
 	SAFE_DELETE_ARR(_pBuffer);
 
-	if (_size != 0)
+	if (_size > 0)
 	{
 		_pBuffer = new byte[_size];
 		memcpy(_pBuffer, key._pBuffer, _size);
@@ -91,7 +100,7 @@ void ECCKey::ResizeKey(const size_t& size)
 	}
 }
 
-void ECCKey::SetKey(byte const * const value, const size_t& size)
+void ECCKey::SetKey(byte const * const pValue, const size_t& size)
 {
 	if (size != _size)
 	{
@@ -99,10 +108,10 @@ void ECCKey::SetKey(byte const * const value, const size_t& size)
 		return;
 	}
 
-	memcpy(_pBuffer, value, size);
+	memcpy(_pBuffer, pValue, size);
 }
 
-void ECCKey::SetKey(byte const * const value, const size_t& offset, const size_t& size)
+void ECCKey::SetKey(byte const * const pValue, const size_t& offset, const size_t& size)
 {
 	if (offset + size > _size)
 	{
@@ -111,7 +120,7 @@ void ECCKey::SetKey(byte const * const value, const size_t& offset, const size_t
 	}
 
 	byte *pStart = (byte*)_pBuffer;
-	memcpy(pStart + offset, value, size);
+	memcpy(pStart + offset, pValue, size);
 }
 
 // ECCKey
@@ -191,8 +200,10 @@ void ECC_Encryptor::GenerateKeysPair(SecretKey& __hep_out pubKey, SecretKey& __h
 	ECCKey	&pubECCKey = reinterpret_cast<ECCKey&>(pubKey);
 	ECCKey	&priECCKey = reinterpret_cast<ECCKey&>(priKey);
 
-	pubECCKey.ResizeKey(pubSize);
-	priECCKey.ResizeKey(priSize);
+	if(pubSize != pubECCKey.KeyBufferSize())
+		pubECCKey.ResizeKey(pubSize);
+	if (priSize != priECCKey.KeyBufferSize())
+		priECCKey.ResizeKey(priSize);
 
 	pubECCKey.SetKey(pPubBuf, pubSize);
 	priECCKey.SetKey(pPriBuf, priSize);	
@@ -217,7 +228,8 @@ void ECC_Encryptor::SharedSecret(SecretKey& __hep_out sharedKey,
 		return;
 	}
 
-	reinterpret_cast<ECCKey&>(sharedKey).ResizeKey(size);
+	if (size != reinterpret_cast<ECCKey&>(sharedKey).KeyBufferSize())
+		reinterpret_cast<ECCKey&>(sharedKey).ResizeKey(size);
 	reinterpret_cast<ECCKey&>(sharedKey).SetKey(pSecret, size);
 }
 

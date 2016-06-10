@@ -10,8 +10,8 @@
 *
 */
 
-#if !defined(_HEP_ENCRYPTOR_H_)
-#define _HEP_ENCRYPTOR_H_
+#if !defined(_HEPAESTUS_ENCRYPTOR_H_)
+#define _HEPAESTUS_ENCRYPTOR_H_
 
 namespace Hephaestus
 {
@@ -34,8 +34,8 @@ namespace Hephaestus
 		protected:
 			virtual void Clear() = 0;
 			virtual void ResizeKey(const size_t& size) = 0;
-			virtual void SetKey(byte const * const value, const size_t& size) = 0;
-			virtual void SetKey(byte const * const value, const size_t& offset, const size_t& size) = 0;
+			virtual void SetKey(byte const * const pValue, const size_t& size) = 0;
+			virtual void SetKey(byte const * const pValue, const size_t& offset, const size_t& size) = 0;
 
 		protected:
 		private:
@@ -77,4 +77,4 @@ namespace Hephaestus
 	}
 }
 
-#endif // _HEP_ENCRYPTOR_H_
+#endif // _HEPAESTUS_ENCRYPTOR_H_

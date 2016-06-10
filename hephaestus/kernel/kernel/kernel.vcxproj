@@ -82,12 +82,16 @@
     <ClInclude Include="hephaestus.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="precompile.h" />
+    <ClInclude Include="sha.h" />
+    <ClInclude Include="shaII.h" />
     <ClInclude Include="utilities.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="encryptor-ecc.cpp" />
     <ClCompile Include="encryptor.cpp" />
     <ClCompile Include="precompile.cpp" />
+    <ClCompile Include="sha.cpp" />
+    <ClCompile Include="shaII.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

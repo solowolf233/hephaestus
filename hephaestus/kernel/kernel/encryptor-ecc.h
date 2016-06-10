@@ -25,7 +25,8 @@ namespace Hephaestus
 			friend class ECC_Encryptor;
 		public:
 			ECCKey();
-			ECCKey(const ECCKey& key);
+			ECCKey(const size_t& __hep_in size);
+			ECCKey(const ECCKey& __hep_in key);			// Deep copy
 			virtual ~ECCKey();
 
 		public:
@@ -40,8 +41,8 @@ namespace Hephaestus
 		protected:
 			virtual void Clear() override;
 			virtual void ResizeKey(const size_t& size) override;
-			virtual void SetKey(byte const * const __hep_in value, const size_t& __hep_in size) override;
-			virtual void SetKey(byte const * const __hep_in value, const size_t& __hep_in offset, const size_t& __hep_in size) override;
+			virtual void SetKey(byte const * const __hep_in pValue, const size_t& __hep_in size) override;
+			virtual void SetKey(byte const * const __hep_in pValue, const size_t& __hep_in offset, const size_t& __hep_in size) override;
 
 		protected:
 			void		*_pBuffer;
@@ -61,10 +62,15 @@ namespace Hephaestus
 				secp256r1,
 				secp256k1		// Recommended.
 			} CurveType;
+
 		public:
+			// Deleted
 			ECC_Encryptor() = delete;
-			ECC_Encryptor(const CurveType& curvetype);
 			ECC_Encryptor(const ECC_Encryptor& encryptor) = delete;
+			ECC_Encryptor operator = (const ECC_Encryptor& encryptor) = delete;
+
+		public:
+			ECC_Encryptor(const CurveType& curvetype);
 			~ECC_Encryptor();
 
 		public:

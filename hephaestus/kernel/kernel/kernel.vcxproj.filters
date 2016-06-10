@@ -39,6 +39,12 @@
     <ClInclude Include="datatypes.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="sha.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="shaII.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="precompile.cpp">
@@ -48,6 +54,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="encryptor-ecc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="sha.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="shaII.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
