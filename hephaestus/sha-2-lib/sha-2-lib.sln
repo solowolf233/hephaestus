@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sha-2-lib", "sha-2-lib\sha-2-lib.vcxproj", "{C3C6C4CB-FC66-4D02-81FD-A4B535E962AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3C6C4CB-FC66-4D02-81FD-A4B535E962AF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C3C6C4CB-FC66-4D02-81FD-A4B535E962AF}.Debug|Win32.Build.0 = Debug|Win32
+		{C3C6C4CB-FC66-4D02-81FD-A4B535E962AF}.Release|Win32.ActiveCfg = Release|Win32
+		{C3C6C4CB-FC66-4D02-81FD-A4B535E962AF}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
