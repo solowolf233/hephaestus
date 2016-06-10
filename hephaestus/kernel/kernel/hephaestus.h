@@ -22,6 +22,7 @@
 
 #define uECC_ENABLE_VLI_API 1
 #include "../../inc/tinyxml-lib/tinyxml.h"
+#include "../../inc/sha-2-lib/sha2.h"
 #include "../../inc/ecc-lib/uECC.h"
 #include "../../inc/ecc-lib/uECC_vli.h"
 
@@ -36,8 +37,9 @@
 #if defined(_DEBUG)
 #	pragma comment(lib, "../../bin/tinyxml-lib_d.lib")
 #	pragma comment(lib, "../../bin/uecc-lib_d.lib")
+#	pragma comment(lib, "../../bin/sha-2-lib_d.lib")
 #else
 #	pragma comment(lib, "../../bin/tinyxml-lib.lib")
 #	pragma comment(lib, "../../bin/uecc-lib.lib")
+#	pragma comment(lib, "../../bin/sha-2-lib.lib")
 #endif
-
