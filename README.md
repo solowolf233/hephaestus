@@ -1,5 +1,5 @@
-#HEPHAESTUS
-POWER BY DLMU-FLEET-ASSOCIATION-HEPHAESTUS-TEAM
+#<font color = #00A0F0>HEPHAESTUS</font>
+<font color = #0070C0>POWERED BY **DLMU-FLEET-ASSOCIATION-HEPHAESTUS-TEAM**</font>
 ##Overview
 ###What is hephaestus
 &emsp;
