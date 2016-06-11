@@ -22,61 +22,26 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	int res = 0;
 
-	char message = 'A';
-	Sha_Hash	hash(28);
-	Sha224		sha224;
-	Sha256		sha256;
-	Sha512		sha512;
-	Sha384		sha384;
+	char testMsg[3000];
 
-	sha224.Begin();
-	sha224.Update((byte*)&message, sizeof(message));
-	sha224.End(hash);	
-	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
+	for (int i = 0; i < sizeof(testMsg); ++i)
+	{
+		testMsg[i] = i*i;
+	}
+
+	Sha_Hash hash;
+	Sha512	s512;
+
+	s512.Hash(hash, (byte*)testMsg, sizeof(testMsg));
 	cout << hash.ToString() << endl;
+	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 
-
-	sha256.Begin();
-	sha256.Update((byte*)&message, sizeof(message));
-	sha256.End(hash);
-	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
+	s512.Begin();
+	s512.Update((byte*)testMsg, sizeof(testMsg) / 2);
+	s512.Update((byte*)(testMsg + sizeof(testMsg) / 2), sizeof(testMsg) / 2);
+	s512.End(hash);
 	cout << hash.ToString() << endl;
-
-
-	sha512.Begin();
-	sha512.Update((byte*)&message, sizeof(message));
-	sha512.End(hash);
-	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
-	cout << hash.ToString() << endl;
-
-
-	sha384.Begin();
-	sha384.Update((byte*)&message, sizeof(message));
-	sha384.End(hash);
-	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
-	cout << hash.ToString() << endl;
-
-
-	sha224.Hash(hash, (byte*)&message, sizeof(message));
-	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
-	cout << hash.ToString() << endl;
-
-
-	sha256.Hash(hash, (byte*)&message, sizeof(message));
-	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
-	cout << hash.ToString() << endl;
-
-
-	sha512.Hash(hash, (byte*)&message, sizeof(message));
-	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
-	cout << hash.ToString() << endl;
-
-
-	sha384.Hash(hash, (byte*)&message, sizeof(message));
-	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
-	cout << hash.ToString() << endl;
-
-	
+	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" << endl;
 
 	
 	//vli_print((uint8_t*)hash, 32);

@@ -60,12 +60,6 @@ void Sha224::Begin()
 
 void Sha224::Update(byte const * const __hep_in pMessage, const size_t& __hep_in size)
 {
-	if (size > SHA224_BLOCK_SIZE)
-	{
-		throw std::invalid_argument("Error: She size of message piece is larger than the blocksize");
-		return;
-	}
-
 	sha224_update(_pCtx, pMessage, size);
 }
 
@@ -141,12 +135,6 @@ void Sha256::Begin()
 
 void Sha256::Update(byte const * const __hep_in pMessage, const size_t& __hep_in size)
 {
-	if (size > SHA256_BLOCK_SIZE)
-	{
-		throw std::invalid_argument("Error: She size of message piece is larger than the blocksize");
-		return;
-	}
-
 	sha256_update(_pCtx, pMessage, size);
 }
 
@@ -222,12 +210,6 @@ void Sha512::Begin()
 
 void Sha512::Update(byte const * const __hep_in pMessage, const size_t& __hep_in size)
 {
-	if (size > SHA512_BLOCK_SIZE)
-	{
-		throw std::invalid_argument("Error: She size of message piece is larger than the blocksize");
-		return;
-	}
-
 	sha512_update(_pCtx, pMessage, size);
 }
 
@@ -304,12 +286,6 @@ void Sha384::Begin()
 
 void Sha384::Update(byte const * const __hep_in pMessage, const size_t& __hep_in size)
 {
-	if (size > SHA384_BLOCK_SIZE)
-	{
-		throw std::invalid_argument("Error: She size of message piece is larger than the blocksize");
-		return;
-	}
-
 	sha384_update(_pCtx, pMessage, size);
 }
 
