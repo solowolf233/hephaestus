@@ -56,6 +56,28 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
 	cout << hash.ToString() << endl;
 
+
+	sha224.Hash(hash, (byte*)&message, sizeof(message));
+	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
+	cout << hash.ToString() << endl;
+
+
+	sha256.Hash(hash, (byte*)&message, sizeof(message));
+	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
+	cout << hash.ToString() << endl;
+
+
+	sha512.Hash(hash, (byte*)&message, sizeof(message));
+	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
+	cout << hash.ToString() << endl;
+
+
+	sha384.Hash(hash, (byte*)&message, sizeof(message));
+	cout << "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
+	cout << hash.ToString() << endl;
+
+	
+
 	
 	//vli_print((uint8_t*)hash, 32);
 

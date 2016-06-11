@@ -63,6 +63,7 @@ namespace Hephaestus
 		public:
 			virtual std::string SHAType() const = 0;
 			virtual State QueryState() const = 0;
+			virtual size_t BlockSize() const = 0;
 
 			virtual void Begin() = 0;
 			virtual void Update(byte const * const __hep_in pMessage, const size_t& __hep_in size) = 0;

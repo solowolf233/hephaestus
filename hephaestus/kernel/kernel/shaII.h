@@ -32,6 +32,7 @@ namespace Hephaestus
 		public:
 			virtual std::string SHAType() const override;
 			virtual State QueryState() const override;
+			virtual size_t BlockSize() const override;
 
 			virtual void Begin() override;
 			virtual void Update(byte const * const __hep_in pMessage, const size_t& __hep_in size) override;
@@ -59,6 +60,7 @@ namespace Hephaestus
 		public:
 			virtual std::string SHAType() const override;
 			virtual State QueryState() const override;
+			virtual size_t BlockSize() const override;
 
 			virtual void Begin() override;
 			virtual void Update(byte const * const __hep_in pMessage, const size_t& __hep_in size) override;
@@ -87,6 +89,7 @@ namespace Hephaestus
 		public:
 			virtual std::string SHAType() const override;
 			virtual State QueryState() const override;
+			virtual size_t BlockSize() const override;
 
 			virtual void Begin() override;
 			virtual void Update(byte const * const __hep_in pMessage, const size_t& __hep_in size) override;
@@ -115,6 +118,7 @@ namespace Hephaestus
 		public:
 			virtual std::string SHAType() const override;
 			virtual State QueryState() const override;
+			virtual size_t BlockSize() const override;
 
 			virtual void Begin() override;
 			virtual void Update(byte const * const __hep_in pMessage, const size_t& __hep_in size) override;
